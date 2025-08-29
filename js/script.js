@@ -9,20 +9,20 @@ class ServiceCarousel {
 
     this.backgroundSources = [
       { type: 'video', src: 'images/Angel_bg2.mp4' },
-      { type: 'image', src: 'images/image2.png' },
-      { type: 'image', src: 'images/image3.png' },
-      { type: 'image', src: 'images/image4.png' },
-      { type: 'image', src: 'images/image5.png' },
-      { type: 'image', src: 'images/image6.png' },
+      { type: 'image', src: 'images/image2.jpg' },
+      { type: 'image', src: 'images/image3.jpg' },
+      { type: 'image', src: 'images/image4.jpg' },
+      { type: 'image', src: 'images/image5.jpg' },
+      { type: 'image', src: 'images/image6.jpg' },
     ];
 
     this.cardBackgrounds = [
-      'images/image1.png',
-      'images/image2.png',
-      'images/image3.png',
-      'images/image4.png',
-      'images/image5.png',
-      'images/image6.png',
+      'images/image1.jpg',
+      'images/image2.jpg',
+      'images/image3.jpg',
+      'images/image4.jpg',
+      'images/image5.jpg',
+      'images/image6.jpg',
     ];
 
     this.videoElement = document.querySelector('.video-background video');
@@ -226,6 +226,4 @@ class ServiceCarousel {
 
 document.addEventListener('DOMContentLoaded', () => {
   const carousel = new ServiceCarousel();
-
-  console.log('Service carousel initialized successfully!');
 });

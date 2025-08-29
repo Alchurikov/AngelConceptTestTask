@@ -1,16 +1,19 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>New Web Project</title>
+    <title>
+      Ангел Concept - центр премиального ухода и косметологии в Ставрополе
+    </title>
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
     <link rel="stylesheet" href="css/style.css" />
   </head>
   <body>
     <div class="video-background">
       <video autoplay muted loop>
-        <source src="images/Angel_bg2.mp4" type="video/mp4"" /> Your browser
-        does not support the video tag.
+        <source src="images/Angel_bg2.mp4" type="video/mp4" />
+        Your browser does not support the video tag.
       </video>
       <div class="video-overlay"></div>
     </div>
@@ -38,17 +41,24 @@
             </div>
           </div>
           <div class="header__logo">
-            <img
-              class="header__logo--image"
-              src="./images/Center.svg"
-              alt="Логотип салона красоты Ангел Concept"
-            />
+            <a href="/" aria-label="Главная страница Ангел Concept">
+              <img
+                class="header__logo--image"
+                src="./images/Center.svg"
+                alt="Логотип салона красоты Ангел Concept"
+              />
+            </a>
           </div>
 
           <div class="header__right">
             <div class="header__contact">
               <div class="header__messagers">
-                <div class="messager__left">
+                <a
+                  href="https://wa.me/79100044636"
+                  target="_blank"
+                  class="messager__left"
+                  aria-label="Написать в WhatsApp"
+                >
                   <img
                     width="20px"
                     height="20px"
@@ -56,8 +66,13 @@
                     src="./images/whatsapp.svg"
                     alt="Связь через WhatsApp"
                   />
-                </div>
-                <div class="messager__right">
+                </a>
+                <a
+                  href="https://t.me/angelconcept"
+                  target="_blank"
+                  class="messager__right"
+                  aria-label="Написать в Telegram"
+                >
                   <img
                     width="20px"
                     height="20px"
@@ -65,16 +80,18 @@
                     src="./images/telegram.svg"
                     alt="Связь через Telegram"
                   />
-                </div>
+                </a>
               </div>
 
               <div class="header__phone">
-                <div class="header__phone--title">+7 910 004-46-36</div>
+                <a href="tel:+79100044636" class="header__phone--title"
+                  >+7 910 004-46-36</a
+                >
                 <div class="header__phone--sub">Пн–ВС, с 10:00–22:00</div>
               </div>
 
-              <div class="header__CTA">
-                <div class="header__CTA--title">ЗАПИСЬ НА ПРИЁМ</div>
+              <button class="header__CTA" aria-label="Записаться на приём">
+                <span class="header__CTA--title">ЗАПИСЬ НА ПРИЁМ</span>
                 <img
                   width="24px"
                   height="24px"
@@ -82,7 +99,7 @@
                   src="./images/arrowTopButton.svg"
                   alt="Стрелка для записи на приём"
                 />
-              </div>
+              </button>
             </div>
           </div>
         </div>
@@ -137,19 +154,22 @@
             alt="Декоративная линия"
           />
         </div>
-        <div class="content__main">
+        <h1 class="content__main">
           Ангел Concept — <br />
           центр премиального ухода <br />
           и косметологии в Ставрополе
-        </div>
+        </h1>
 
         <div class="content__sub">
           Место, где вы выбираете заботу о себе как стиль <br />
           жизни. Эстетично, профессионально и легко
         </div>
 
-        <div class="content__button">
-          <div class="content__button--title">подробнее об услугах</div>
+        <button
+          class="content__button"
+          aria-label="Узнать подробнее об услугах"
+        >
+          <span class="content__button--title">подробнее об услугах</span>
           <img
             width="24px"
             height="24px"
@@ -157,7 +177,7 @@
             src="./images/arrowUpWhite.svg"
             alt="Стрелка для подробностей об услугах"
           />
-        </div>
+        </button>
       </main>
       <footer class="services">
         <div class="service__item--active">
@@ -174,7 +194,7 @@
             <div class="card__right">
               <img
                 class="card__right--image"
-                src="./images/message.png"
+                src="./images/image1.jpg"
                 alt="Иллюстрация косметологических услуг"
               />
             </div>

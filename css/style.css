@@ -197,6 +197,18 @@ body {
   backdrop-filter: blur(20px);
   box-shadow: 0 2px 2px 0 rgba(58, 58, 58, 0.08);
   background: rgba(255, 255, 255, 0.12);
+  text-decoration: none;
+  transition: background 0.3s ease, transform 0.3s ease;
+}
+
+.messager__left:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: translateY(-1px);
+}
+
+.messager__left:focus {
+  outline: 2px solid #d4b26f;
+  outline-offset: 2px;
 }
 
 .messager__right {
@@ -211,6 +223,18 @@ body {
   box-shadow: 0 2px 2px 0 rgba(58, 58, 58, 0.08);
   background: rgba(255, 255, 255, 0.12);
   margin-left: 10px;
+  text-decoration: none;
+  transition: background 0.3s ease, transform 0.3s ease;
+}
+
+.messager__right:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: translateY(-1px);
+}
+
+.messager__right:focus {
+  outline: 2px solid #d4b26f;
+  outline-offset: 2px;
 }
 
 .header__phone {
@@ -225,6 +249,18 @@ body {
   letter-spacing: -0.01em;
   color: #fff;
   margin-bottom: 4px;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.header__phone--title:hover {
+  color: #d4b26f;
+}
+
+.header__phone--title:focus {
+  outline: 2px solid #d4b26f;
+  outline-offset: 2px;
+  border-radius: 4px;
 }
 
 .header__phone--sub {
@@ -245,6 +281,19 @@ body {
   margin-left: 24px;
   align-items: center;
   justify-content: center;
+  border: none;
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.3s ease;
+}
+
+.header__CTA:hover {
+  background: #f0f0f0;
+  transform: translateY(-1px);
+}
+
+.header__CTA:focus {
+  outline: 2px solid #d4b26f;
+  outline-offset: 2px;
 }
 
 .header__CTA--title {
@@ -279,6 +328,17 @@ body {
   text-transform: uppercase;
   color: #fff;
   text-decoration: none;
+  transition: color 0.3s ease;
+  padding: 8px 4px;
+  border-radius: 4px;
+}
+
+.nav__list--link:hover {
+  color: #d4b26f;
+}
+
+.nav__list--link:focus {
+  color: #d4b26f;
 }
 
 .nav__list--link1 {
@@ -291,6 +351,17 @@ body {
   text-transform: uppercase;
   color: #fff;
   text-decoration: none;
+  transition: color 0.3s ease;
+  padding: 8px 4px;
+  border-radius: 4px;
+}
+
+.nav__list--link1:hover {
+  color: #d4b26f;
+}
+
+.nav__list--link1:focus {
+  color: #d4b26f;
 }
 
 .content {
@@ -338,6 +409,23 @@ body {
     19px 51px 22px 0 rgba(113, 87, 71, 0.03),
     29px 79px 24px 0 rgba(113, 87, 71, 0);
   background: linear-gradient(180deg, #d4b26f 0%, #a87c25 100%);
+  border: none;
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.content__button:hover {
+  transform: translateY(-2px);
+  box-shadow: 2px 6px 14px 0 rgba(113, 87, 71, 0.3),
+    10px 26px 26px 0 rgba(113, 87, 71, 0.25),
+    22px 56px 36px 0 rgba(113, 87, 71, 0.15),
+    38px 102px 44px 0 rgba(113, 87, 71, 0.05),
+    58px 158px 48px 0 rgba(113, 87, 71, 0);
+}
+
+.content__button:focus {
+  outline: 2px solid #fff;
+  outline-offset: 2px;
 }
 
 .content__button--title {
@@ -365,7 +453,7 @@ body {
   background: #fff;
   display: flex;
   align-items: stretch;
-  transition: all 0.3s ease;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
   overflow: hidden;
 }
 
@@ -448,7 +536,7 @@ body {
   height: 138px;
   backdrop-filter: blur(16px);
   background: rgba(255, 255, 255, 0.12);
-  transition: all 0.3s ease;
+  transition: background 0.3s ease, transform 0.3s ease;
 }
 
 .card__default {
