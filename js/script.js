@@ -6,6 +6,7 @@ class ServiceCarousel {
     this.currentIndex = 0;
     this.intervalTime = 5000;
     this.interval = null;
+    this.cycleCount = 0;
 
     this.backgroundSources = [
       { type: 'video', src: 'images/Angel_bg2.mp4' },
@@ -17,16 +18,39 @@ class ServiceCarousel {
     ];
 
     this.cardBackgrounds = [
-      'images/image1.jpg',
       'images/image2.jpg',
       'images/image3.jpg',
       'images/image4.jpg',
       'images/image5.jpg',
       'images/image6.jpg',
+      'images/image7.jpg',
+    ];
+
+    this.mainTitles = [
+      'Ангел Concept —<br/>центр премиального ухода<br/>и косметологии в Ставрополе',
+      'Косметология:<br/>уходы, инъекции, лифтинг',
+      'Коррекция фигуры<br/>и силуэта',
+      'SPA и европейские<br/>массажи',
+      'Велнес-программы<br/>и флоатация',
+      'Beauty-услуги:<br/>волосы, ногти, макияж',
+      'Тайские и балийские<br/>массажи',
+    ];
+
+    this.buttonTitles = [
+      'подробнее об услугах',
+      'Выбрать процедуру',
+      'Выбрать процедуру',
+      'Выбрать процедуру',
+      'Выбрать процедуру',
+      'Выбрать процедуру',
+      'Выбрать процедуру',
     ];
 
     this.videoElement = document.querySelector('.video-background video');
     this.videoBackground = document.querySelector('.video-background');
+    this.mainTitle = document.querySelector('.content__main');
+    this.buttonTitle = document.querySelector('.content__button--title');
+    this.contentLine = document.querySelector('.content__line');
 
     this.createImageLayers();
 
@@ -37,11 +61,42 @@ class ServiceCarousel {
   }
 
   init() {
+    this.addClickListeners();
     this.startCarousel();
+  }
+
+  addClickListeners() {
+    this.serviceItems.forEach((item, index) => {
+      item.addEventListener('click', () => {
+        const targetIndex = (index + 1) % this.serviceItems.length;
+
+        if (targetIndex === this.currentIndex) {
+          return;
+        }
+
+        this.stopCarousel();
+        this.currentIndex = targetIndex;
+
+        if (this.currentIndex === 0) {
+          this.cycleCount++;
+        }
+
+        this.setActiveService(this.currentIndex);
+
+        if (this.resumeTimeout) {
+          clearTimeout(this.resumeTimeout);
+        }
+
+        this.resumeTimeout = setTimeout(() => {
+          this.startCarousel();
+        }, 100);
+      });
+    });
   }
 
   setActiveService(index) {
     this.changeBackground(index);
+    this.updateMainContent(index);
     this.serviceItems.forEach((item, i) => {
       const card = item.querySelector(
         '.service__card, .service__card--default'
@@ -60,7 +115,6 @@ class ServiceCarousel {
         }
         if (loading) {
           loading.className = 'service__loading--active';
-          loading.style.width = '144px';
           this.animateLoadingBar(loading);
         }
       } else {
@@ -73,8 +127,7 @@ class ServiceCarousel {
         }
         if (loading) {
           loading.className = 'service__loading--default';
-          loading.style.width = '144px';
-          loading.style.transition = 'width 0.3s ease';
+          loading.style.removeProperty('--progress-width');
         }
       }
     });
@@ -128,7 +181,7 @@ class ServiceCarousel {
         background-position: center;
         background-repeat: no-repeat;
         opacity: 0;
-        transition: opacity 0.8s ease-in-out;
+        transition: opacity 1.2s ease-in-out;
         z-index: ${1 + i};
       `;
 
@@ -140,34 +193,46 @@ class ServiceCarousel {
     }
   }
 
+  resetTransitionState() {
+    this.imageLayers.forEach((layer) => {
+      layer.style.transition = 'opacity 1.2s ease-in-out';
+    });
+    this.videoElement.style.transition = 'opacity 1.2s ease-in-out';
+  }
+
   changeBackground(index) {
-    const background = this.backgroundSources[index];
-    const transitionDuration = 800;
+    let background = this.backgroundSources[index];
+
+    if (index === 0 && this.cycleCount === 0) {
+      background = { type: 'video', src: 'images/Angel_bg2.mp4' };
+    } else if (index === 0 && this.cycleCount > 0) {
+      background = { type: 'image', src: 'images/image7.jpg' };
+    }
+
+    this.resetTransitionState();
 
     if (background.type === 'video') {
-      this.transitionToVideo(background.src, transitionDuration);
+      this.transitionToVideo(background.src);
     } else {
-      this.transitionToImage(background.src, transitionDuration);
+      this.transitionToImage(background.src);
     }
   }
 
-  transitionToVideo(videoSrc, duration) {
+  transitionToVideo(videoSrc) {
+    this.videoElement.src = videoSrc;
+    this.videoElement.load();
+
     this.imageLayers.forEach((layer) => {
       layer.style.opacity = '0';
     });
 
-    this.videoElement.src = videoSrc;
-    this.videoElement.load();
-
-    setTimeout(() => {
-      this.videoElement.style.opacity = '1';
-      this.videoElement.play();
-    }, duration / 2);
+    this.videoElement.style.opacity = '1';
+    this.videoElement.play();
 
     this.currentBackgroundType = 'video';
   }
 
-  transitionToImage(imageSrc, duration) {
+  transitionToImage(imageSrc) {
     const newLayer = this.imageLayers[this.activeImageLayer];
     const oldLayer = this.imageLayers[1 - this.activeImageLayer];
 
@@ -175,15 +240,15 @@ class ServiceCarousel {
     img.onload = () => {
       newLayer.style.backgroundImage = `url('${imageSrc}')`;
 
+      newLayer.offsetHeight;
+
       if (this.currentBackgroundType === 'video') {
         this.videoElement.style.opacity = '0';
       } else {
         oldLayer.style.opacity = '0';
       }
 
-      setTimeout(() => {
-        newLayer.style.opacity = '1';
-      }, duration / 2);
+      newLayer.style.opacity = '1';
 
       this.activeImageLayer = 1 - this.activeImageLayer;
       this.currentBackgroundType = 'image';
@@ -192,24 +257,55 @@ class ServiceCarousel {
     img.src = imageSrc;
   }
 
+  updateMainContent(index) {
+    let titleIndex = index;
+    let buttonIndex = index;
+
+    if (index === 0 && this.cycleCount > 0) {
+      titleIndex = 6;
+      buttonIndex = 6;
+    }
+
+    if (this.mainTitle && this.buttonTitle) {
+      this.mainTitle.innerHTML = this.mainTitles[titleIndex];
+      this.buttonTitle.textContent = this.buttonTitles[buttonIndex];
+    }
+
+    if (this.contentLine) {
+      this.contentLine.style.display =
+        index === 0 && this.cycleCount === 0 ? 'block' : 'none';
+    }
+  }
+
   animateLoadingBar(loadingElement) {
-    loadingElement.style.width = '144px';
-    loadingElement.style.transition = 'width 5s linear';
+    const progressBar =
+      loadingElement.querySelector('::after') || loadingElement;
 
-    loadingElement.offsetHeight;
+    if (loadingElement.classList.contains('service__loading--active')) {
+      loadingElement.style.setProperty('--progress-width', '0%');
 
-    setTimeout(() => {
-      loadingElement.style.width = '260px';
-    }, 50);
+      loadingElement.offsetHeight;
+
+      setTimeout(() => {
+        loadingElement.style.setProperty('--progress-width', '100%');
+      }, 50);
+    }
   }
 
   nextService() {
     this.currentIndex = (this.currentIndex + 1) % this.serviceItems.length;
+
+    if (this.currentIndex === 0) {
+      this.cycleCount++;
+    }
+
     this.setActiveService(this.currentIndex);
   }
 
   startCarousel() {
-    this.setActiveService(this.currentIndex);
+    if (!this.interval && this.currentIndex === 0 && this.cycleCount === 0) {
+      this.setActiveService(this.currentIndex);
+    }
 
     this.interval = setInterval(() => {
       this.nextService();
@@ -220,6 +316,11 @@ class ServiceCarousel {
     if (this.interval) {
       clearInterval(this.interval);
       this.interval = null;
+    }
+
+    if (this.resumeTimeout) {
+      clearTimeout(this.resumeTimeout);
+      this.resumeTimeout = null;
     }
   }
 }
