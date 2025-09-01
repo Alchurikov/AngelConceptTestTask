@@ -449,8 +449,8 @@ body {
 .services {
   position: absolute;
   top: 620px;
-  left: 300px;
-  right: 180px;
+  left: 51%;
+  transform: translateX(-51%);
   display: flex;
   gap: 8px;
   margin-bottom: 42px;
